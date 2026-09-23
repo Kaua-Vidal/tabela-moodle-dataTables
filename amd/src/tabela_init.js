@@ -1,0 +1,69 @@
+/* eslint-disable */
+define(['jquery', 'datatables.net', 'datatables.net-bs4'], function ($) {
+    return {
+        init: function (params) {
+            var $table = $(params.tabela);
+
+            var table = $table.DataTable({
+                serverSide: true,
+                ajax: {
+                    url: $table.data('ajax-url'),
+                    type: 'POST', // Mudamos aqui! Sem limite de tamanho agora.
+                    data: function (d) {
+                        d.filtro_curso = $('select[data-filter-col="1"]').val();
+                        d.filtro_polo = $('select[data-filter-col="2"]').val();
+                    }
+                },
+                // A MÁGICA ESTÁ AQUI: Ensinamos a tabela a ler as "etiquetas" vindas do PHP
+                columns: [
+                    { data: 'nome' },
+                    { data: 'curso' },
+                    { data: 'polo' },
+                    { data: 'ano' },
+                    { data: 'periodo' },
+                    { data: 'situacao' },
+                    { data: null, defaultContent: '' } // Ações não vêm do banco, nós desenhamos ela abaixo
+                ],
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: function (data, type) {
+                            if (type === 'display' && data && data.length > 25) {
+                                return '<span class="texto-comprimido" title="' + data + '">' + data.substr(0, 25) + '... (Ver mais)</span>' +
+                                       '<span class="texto-expandido d-none">' + data + ' (Ocultar)</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        targets: 6,
+                        orderable: false,
+                        render: function () {
+                            return '<button class="btn btn-primary btn-sm px-3"><i class="fa fa-eye"></i> Ver</button>';
+                        }
+                    }
+                ]
+            });
+
+            // Lógica do clique no nome
+            $table.on('click', '.texto-comprimido, .texto-expandido', function () {
+                var $cell = $(this).closest('td');
+                $cell.find('.texto-comprimido').toggleClass('d-none');
+                $cell.find('.texto-expandido').toggleClass('d-none');
+            });
+
+            // Filtros
+            $('#btn-aplicar-filtros').on('click', function() {
+                table.draw();
+            });
+
+            // PDF
+            $('#btn-imprimir').on('click', function() {
+                window.location.href = M.cfg.wwwroot + '/local/amdbasico/exportar_pdf.php';
+            });
+        }
+    };
+});

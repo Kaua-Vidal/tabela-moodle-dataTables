@@ -1,0 +1,83 @@
+/* --- COMPRESSÃO DE TEXTOS --- */
+.texto-comprimido { 
+    cursor: pointer; 
+    color: #0f6cbf; 
+    border-bottom: 1px dashed #0f6cbf; 
+}
+.texto-expandido { 
+    cursor: pointer; 
+    color: #333; 
+    border-bottom: none; 
+}
+
+/* --- BADGES DE SITUAÇÃO --- */
+.badge {
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+}
+.badge-success { background-color: #28a745; color: white; }
+.badge-warning { background-color: #ffc107; color: #212529; }
+.badge-danger { background-color: #dc3545; color: white; }
+.badge-secondary { background-color: #6c757d; color: white; }
+
+/* --- MELHORIAS NA TABELA E PAINEL --- */
+#painel-filtros {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+#tabela-alunos thead th {
+    background-color: #0f6cbf;
+    color: white;
+    vertical-align: middle;
+}
+#tabela-alunos {
+    margin-top: 15px;
+}
+
+/* --- ESTILIZANDO OS CONTROLES DO DATATABLES --- */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-left: 8px;
+    outline: none;
+}
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: #0f6cbf;
+    box-shadow: 0 0 0 0.2rem rgba(15,108,191,.25);
+}
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 15px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 6px 12px;
+    margin-left: 2px;
+    border: 1px solid #dee2e6;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #0f6cbf !important;
+    text-decoration: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #e9ecef;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #0f6cbf;
+    color: white !important;
+    border-color: #0f6cbf;
+}
+
+/* --- AJUSTE DAS BADGES (Para não ficarem tão pequenas) --- */
+.badge {
+    font-size: 13px !important;
+    padding: 6px 12px !important;
+    font-weight: 500;
+}
